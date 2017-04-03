@@ -1,0 +1,36 @@
+{
+	"name": "joseluisq/guztav",
+    "type": "library",
+    "description": "A small RESTful API client around PHP Guzzle",
+    "keywords": ["http", "rest", "web service", "curl", "json", "client", "HTTP client"],
+    "homepage": "http://guzzlephp.org/",
+    "license": "MIT",
+    "authors": [{
+        "name": "José Luis Quintana",
+        "homepage": "https://git.io/joseluisq",
+        "role": "Owner"
+    }],
+    "config": {
+        "platform": {
+            "php": "7.0"
+        }
+    },
+    "require": {
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+	"require-dev": {
+		"phpunit/phpunit": "^6.0",
+		"vlucas/phpdotenv": "^2.4"
+	},
+    "autoload": {
+        "psr-4": {
+            "Guztav\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Guztav\\Tests\\": "tests/"
+        }
+    }
+}
