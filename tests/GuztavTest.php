@@ -33,7 +33,7 @@ class GuztavTest extends TestCase
             $dotenv->load();
         } else {
             $settings = [
-                'base_uri' => 'https://jsonplaceholder.typicode.com/',
+                'base_uri' => 'http://jsonplaceholder.typicode.com/',
                 'access_token' => 'eyJ0eXBiOiJKV1QiLCN0bx.....'
             ];
         }
