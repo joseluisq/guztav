@@ -9,10 +9,10 @@
  */
 
 /**
- * PHPUnit Autoloader for Guztav Library
- * @author José Luis Quintana <https://git.io/joseluisq>
+ * PHPUnit Autoloader for Guztav Library.
  */
 
 namespace Guztav\Test {
+
     require __DIR__ . '/../vendor/autoload.php';
 }

@@ -1,5 +1,7 @@
-# Guztav [![Build Status](https://travis-ci.org/joseluisq/guztav.svg?branch=master)](https://travis-ci.org/joseluisq/guztav)
+# Guztav
 > A small RESTful API client around [PHP Guzzle](https://github.com/guzzle/guzzle).
+
+[![Build Status](https://travis-ci.org/joseluisq/guztav.svg?branch=master)](https://travis-ci.org/joseluisq/guztav) [![Latest Stable Version](https://poser.pugx.org/joseluisq/guztav/version)](https://packagist.org/packages/joseluisq/guztav) [![Latest Unstable Version](https://poser.pugx.org/joseluisq/guztav/v/unstable)](//packagist.org/packages/joseluisq/guztav) [![Total Downloads](https://poser.pugx.org/joseluisq/guztav/downloads)](https://packagist.org/packages/joseluisq/guztav) [![License](https://poser.pugx.org/joseluisq/guztav/license)](https://packagist.org/packages/joseluisq/guztav)
 
 ## Features
 

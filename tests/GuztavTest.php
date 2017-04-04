@@ -18,12 +18,12 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Guztav Test suite.
- *
- * @package Guztav
- * @author Jose Luis Quintana <https://git.io/joseluisq>
  */
 class GuztavTest extends TestCase
 {
+    /**
+     * Client factory
+     */
     public function clientMaker($isDotenv = false)
     {
         $settings = [];

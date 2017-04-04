@@ -47,36 +47,44 @@ class Response extends \GuzzleHttp\Psr7\Response
         return $data;
     }
 
-    public function to_xml($data, $basenode = 'response', $xml = null)
+    /**
+     * Covert an array to SimpleXMLElement.
+     *
+     * @param  array $data
+     * @param  string $basenode
+     * @param  \SimpleXMLElement $xml
+     * @return \SimpleXMLElement
+     */
+    private function arrayToXML($data = [], $basenode = 'response', $xml = null)
     {
-        // turn off compatibility mode as simple xml throws a wobbly if you don't.
         if (ini_get('zend.ze1_compatibility_mode') == 1) {
             ini_set('zend.ze1_compatibility_mode', 0);
         }
+
         if ($xml == null) {
             $xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$basenode />");
         }
-        // loop through the data passed in.
-        foreach ($data as $key => $value) {
-            // no numeric keys in our xml please!
-          if (is_numeric($key)) {
-              // make string key...
-            $key = "item_" . (string) $key;
-          }
-          // replace anything not alpha numeric
-          $key = preg_replace('/[^a-z]/i', '', $key);
-          // if there is another array found recrusively call this function
-          if (is_array($value)) {
-              $node = $xml->addChild($key);
-            // recrusive call.
-            $this->to_xml($value, $basenode, $node);
-          } else {
-              // add single node.
-            $value = htmlentities($value);
-              $xml->addChild($key, $value);
-          }
+
+        if (!is_array($data)) {
+            return $xml;
         }
-        // pass back as string. or simple xml object if you want!
-        return $xml->asXML();
+
+        foreach ($data as $key => $value) {
+            if (is_numeric($key)) {
+                $key = "item_" . (string) $key;
+            }
+
+            $key = preg_replace('/[^a-z]/i', '', $key);
+
+            if (is_array($value)) {
+                $node = $xml->addChild($key);
+                $this->arrayToXML($value, $basenode, $node);
+            } else {
+                $value = htmlentities($value);
+                $xml->addChild($key, $value);
+            }
+        }
+
+        return $xml;
     }
 }

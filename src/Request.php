@@ -20,8 +20,9 @@ class Request extends \GuzzleHttp\Psr7\Request
         $uri,
         array $headers = [],
         $body = null,
-        $version = '')
-    {
+        $version = ''
+    ) {
+    
         parent::__construct($method, $uri, $headers, $body, $version);
     }
 }
