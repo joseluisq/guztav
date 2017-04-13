@@ -76,27 +76,27 @@ class Client extends \GuzzleHttp\Client
         return $this->prepareResponse(parent::send($request, $options));
     }
 
-    public function get($uri, array $options = [])
+    public function get($uri = '', array $options = [])
     {
         return $this->send(new \Guztav\Request('GET', $uri, $options));
     }
 
-    public function post($uri, array $options = [])
+    public function post($uri = '', array $options = [])
     {
         return $this->send(new \Guztav\Request('POST', $uri, $options));
     }
 
-    public function put($uri, array $options = [])
+    public function put($uri = '', array $options = [])
     {
         return $this->send(new \Guztav\Request('PUT', $uri, $options));
     }
 
-    public function patch($uri, array $options = [])
+    public function patch($uri = '', array $options = [])
     {
         return $this->send(new \Guztav\Request('PATCH', $uri, $options));
     }
 
-    public function delete($uri, array $options = [])
+    public function delete($uri = '', array $options = [])
     {
         return $this->send(new \Guztav\Request('DELETE', $uri, $options));
     }
