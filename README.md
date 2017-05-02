@@ -59,18 +59,20 @@ use Guztav\Client;
 $client = new \Guztav\Client();
 
 // My GET request
-$response = $client->get('client/1');
+$response = $client->get('client/1', [
+    'query' => ['a' => 1, 'b' => 2]
+]);
 $string = $response->toString();
 
-// My POST request
+
+// My JSON POST request
 $params = [
     'name' => 'Octocat',
     'email' => 'octo.cat@github.com',
 ];
-$array = $client->post('client', ['form_params' => $params])->toArray();
-
-var_dump($string);
-var_dump($array);
+$array = $client->post('client', [
+    'json' => $params
+])->toArray();
 ```
 
 __Note:__ By now, `Guztav` supports `application/json` response data only.
