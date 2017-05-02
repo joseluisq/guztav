@@ -14,7 +14,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Client class extented from \GuzzleHttp\Client.
+ * Client class extented from \GuzzleHttp\Client
  */
 class Client extends \GuzzleHttp\Client
 {
@@ -78,31 +78,81 @@ class Client extends \GuzzleHttp\Client
 
     public function get($uri = '', array $options = [])
     {
-        return $this->send(new \Guztav\Request('GET', $uri, $options));
+        return $this->send($this->createRequest('GET', $uri, $options));
     }
 
     public function post($uri = '', array $options = [])
     {
-        return $this->send(new \Guztav\Request('POST', $uri, $options));
+        return $this->send($this->createRequest('POST', $uri, $options));
     }
 
     public function put($uri = '', array $options = [])
     {
-        return $this->send(new \Guztav\Request('PUT', $uri, $options));
+        return $this->send($this->createRequest('PUT', $uri, $options));
     }
 
     public function patch($uri = '', array $options = [])
     {
-        return $this->send(new \Guztav\Request('PATCH', $uri, $options));
+        return $this->send($this->createRequest('PATCH', $uri, $options));
     }
 
     public function delete($uri = '', array $options = [])
     {
-        return $this->send(new \Guztav\Request('DELETE', $uri, $options));
+        return $this->send($this->createRequest('DELETE', $uri, $options));
     }
 
     public function getRequest()
     {
         return $this->request;
+    }
+
+    /**
+     * Taken from GuzzleHttp\Client::applyOptions()
+     */
+    private function createRequest($method, $uri, $options)
+    {
+        $headers = $options['headers'] ?? [];
+        $json = $options['json'] ?? null;
+        $query = $options['query'] ?? null;
+        $body = $options['body'] ?? null;
+        $version = $options['version'] ?? '1.1';
+
+        if ($json) {
+            $body = json_encode($json);
+            $headers['Content-Type'] = 'application/json';
+        }
+
+        if ($query) {
+            if (is_array($query)) {
+                $query = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
+                $uri = "{$uri}?{$query}";
+            }
+
+            if (!is_string($query)) {
+                throw new \InvalidArgumentException('query must be a string or array');
+            }
+        }
+
+        if ($body) {
+            if (is_array($body)) {
+                $this->invalidBody();
+            }
+
+            $body = \GuzzleHttp\Psr7\stream_for($body);
+        }
+
+        return new \Guztav\Request($method, $uri, $headers, $body, $version);
+    }
+
+    /**
+     * Taken from GuzzleHttp\Client::invalidBody()
+     */
+    private function invalidBody()
+    {
+        throw new \InvalidArgumentException('Passing in the "body" request '
+            . 'option as an array to send a POST request has been deprecated. '
+            . 'Please use the "form_params" request option to send a '
+            . 'application/x-www-form-urlencoded request, or the "multipart" '
+            . 'request option to send a multipart/form-data request.');
     }
 }
